@@ -1,0 +1,8 @@
+html, body {
+    width: 100px;
+    max-height: 500px;
+}
+
+h1 {
+    color: red;
+}

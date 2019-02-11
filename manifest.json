@@ -6,5 +6,26 @@
   "icons": {
     "48": "src/assets/image/icons/icon-48.png",
     "96": "src/assets/image/icons/icon-96.png"
-  }
+  },
+  "permissions": [
+    "<all_urls>",
+    "tabs",
+    "storage"
+  ],
+  "browser_action": {
+    "default_icon": "src/assets/image/icons/icon-48.png",
+    "default_title": "To-do List",
+    "default_popup": "src/popup/index.html"
+  },
+  "background": {
+    "scripts": [
+      "src/background/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["src/content_scripts/main.js"]
+    }
+  ]
 }

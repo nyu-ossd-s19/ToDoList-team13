@@ -2,6 +2,8 @@ module.exports = {
     root: true,
     env: {
         node: true,
+        browser: true,
+        webextensions: true,
     },
     extends: 'airbnb-base',
     rules: {
