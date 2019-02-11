@@ -11,9 +11,29 @@ Everyone contributes to this project is governed by [Code of Conduct](./CODE_OF_
 
 ## Coding Style
 
-### JavaScript Style Guidline
+### JavaScript Style Guideline
 
-ALl JavaScript must adhere to [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
+All JavaScript code must adhere to [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
 
 - Indent by **4** spaces
 - `console.log` is allowed in development environment, but is not allowed in production environment.
+
+Comments are necessary to `class`, `function` and `object`; JavaScript comments should adhere to [JSDoc](http://usejsdoc.org/).
+
+### Commit Guideline
+
+Commit should be semantic, see [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)
+
+Commit message should be in the following format:
+```
+<type>[optional scope]: <description>
+[optional body]
+[optional] footer
+```
+
+for example:
+
+```
+git commit -m "feat: add popup window"
+```
+
