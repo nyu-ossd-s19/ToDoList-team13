@@ -14,7 +14,7 @@ html, body {
 
 .header__title {
     margin: 0;
-    font-size: 16px;
+    font-size: var(--medium-font);
 }
 
 .header__icon {
