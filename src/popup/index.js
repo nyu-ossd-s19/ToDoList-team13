@@ -1,15 +1,27 @@
-function getCurrentTabs(cb) {
-    browser.tabs.query({
+function getCurrentTab() {
+    return browser.tabs.query({
         currentWindow: true,
         active: true,
-    }, cb);
+    }).then(tabs => tabs[0]);
 }
 
-function main() {
-    getCurrentTabs((tabs) => {
-        const tab = tabs[0];
-        console.log(tab.url);
-    });
+function getCurrentUrl() {
+    return getCurrentTab().then(currTab => currTab.url);
+}
+
+function getCurrentIcon() {
+    return getCurrentTab().then(currTab => currTab.favIconUrl);
+}
+
+async function main() {
+    // get DOM elements
+    const icon = document.querySelector('.header__icon');
+
+    // display current icon in popup
+    const currIcon = await getCurrentIcon();
+    if (currIcon) {
+        icon.src = currIcon;
+    }
 }
 
 main();
