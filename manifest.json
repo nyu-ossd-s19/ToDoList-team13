@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": "To-do List",
+  "version": "1.0.0",
+  "description": "A to-do list browser extension for Firefox",
+  "icons": {
+    "48": "src/assets/image/icons/icon-48.png",
+    "96": "src/assets/image/icons/icon-96.png"
+  }
+}
