@@ -1,14 +1,5 @@
 @import '../assets/css/common.css';
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 500px;
-    min-height: 200px;
-    max-height: 1000px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    color: #333333;
-}
+
 
 .header {
     margin: auto;

@@ -1,7 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+
 :root {
     /* font size */
     --small-font: 12px;
     --medium-font: 16px;
     --large-font: 20px;
     /* color theme */
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 500px;
+    min-height: 200px;
+    max-height: 1000px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #333333;
 }
