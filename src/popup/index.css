@@ -18,8 +18,8 @@ body {
 
 .banner {
     padding: 20px;
-    border-top: 0.5px solid #dadada;
-    border-bottom: 0.5px solid #dadada;
+    border-top: 1px solid #dadada;
+    border-bottom: 1px solid #dadada;
     text-align: center;
 }
 
@@ -67,6 +67,6 @@ button.add:active {
 
 .create {
     display: block;
-    padding-right: 10 10 10 10;
+    padding-right: 10px;
     text-align: right;
 }
