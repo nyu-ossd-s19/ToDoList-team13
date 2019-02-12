@@ -32,18 +32,21 @@ async function increaseIdCounter() {
 }
 
 async function getList() {
-    const list = await browser.storage.local.get('list');
-    return list;
+    const result = await browser.storage.local.get('list');
+    console.log(result.list);
+    if (result.list === undefined) {
+        return {};
+    }
+    return result.list;
 }
 
 async function saveList(list) {
-    console.log(list);
     await browser.storage.local.set({ list });
 }
 
 async function updateAndSaveList(id, content) {
     const list = await getList();
-    list.list[id] = content;
+    list[id] = content;
     await saveList(list);
     await increaseIdCounter();
 }
