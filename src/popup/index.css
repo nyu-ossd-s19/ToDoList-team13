@@ -1,6 +1,5 @@
 @import '../assets/css/common.css';
-html,
-body {
+html, body {
     margin: 0;
     padding: 0;
     width: 500px;
@@ -41,7 +40,13 @@ body {
     height: 48px;
 }
 
-button.add {
+.create {
+    display: block;
+    padding-right: 10px;
+    text-align: right;
+}
+
+.create__add {
     display: inline-block;
     padding: 0.35em 1.2em;
     border: 0.1em solid #D3D3D3;
@@ -56,17 +61,11 @@ button.add {
     background-color: #F5F5F5;
 }
 
-button.add:hover {
+.create__add:hover {
     color: #000000;
     background-color: #A9A9A9;
 }
 
-button.add:active {
+.create__add:active {
     background-color: #ffffff;
-}
-
-.create {
-    display: block;
-    padding-right: 10px;
-    text-align: right;
 }
