@@ -20,6 +20,23 @@ All JavaScript code must adhere to [Airbnb JavaScript Style Guide](https://githu
 
 Comments are necessary to `class`, `function` and `object`; JavaScript comments should adhere to [JSDoc](http://usejsdoc.org/).
 
+### Stylesheet Style Guideline
+
+All stylesheet code (including `CSS`, `Sass`, etc.) must adhere to BEM naming rules.
+
+```css
+.block__element--modifier {}
+
+.button {}
+.button--large {}
+
+.nav {}
+.nav__item {}
+.nav__item--active {}
+```
+
+Please check [BEM naming](http://getbem.com/naming/).
+
 ### Commit Guideline
 
 Commit should be semantic, see [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)
