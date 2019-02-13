@@ -18,6 +18,12 @@ All JavaScript code must adhere to [Airbnb JavaScript Style Guide](https://githu
 - Indent by **4** spaces
 - `console.log` is allowed in development environment, but is not allowed in production environment.
 
+Make sure to lint before commit and there must not be any error:
+
+```bash
+npm run lint
+```
+
 Comments are necessary to `class`, `function` and `object`; JavaScript comments should adhere to [JSDoc](http://usejsdoc.org/).
 
 ### Stylesheet Style Guideline
