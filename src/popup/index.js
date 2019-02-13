@@ -51,8 +51,26 @@ async function updateAndSaveList(id, content) {
     await increaseIdCounter();
 }
 
-// add a new to-do item to storage
-function addNewToDoItem() {
+/**
+ * @param id {Number/String} - ID of the to-do item
+ * @param content {String} - Content of the to-do item
+ * @return {Object} - An <li> element object represents the to-do item
+ */
+function createToDoItemElement(id, content) {
+    const toDoItem = document.createElement('li');
+    toDoItem.innerText = content;
+    toDoItem.id = `todo-${id}`;
+    return toDoItem;
+}
+
+// append a to-do item to the end of to-do list in popup(not storage)
+function appendToDoItemInPopup(id, content) {
+    const container = document.querySelector('.list');
+    container.appendChild(createToDoItemElement(id, content));
+}
+
+// listen the event to add a new to-do item to storage
+function listenNewToDoItem() {
     const newContent = document.getElementById('new-content');
     const newSubmit = document.getElementById('new-submit');
 
@@ -61,6 +79,7 @@ function addNewToDoItem() {
         const idCounter = await getIdCounter();
         const content = newContent.value;
         await updateAndSaveList(idCounter, content);
+        appendToDoItemInPopup(idCounter, content);
     });
 }
 
@@ -73,10 +92,20 @@ async function updateIcon() {
     }
 }
 
+// insert all to-do items to the popup
+async function initList() {
+    const listObj = await getList();
+    const listArr = Object.entries(listObj);
+    listArr.forEach(([id, content]) => {
+        console.log(content);
+        appendToDoItemInPopup(id, content);
+    });
+}
+
 async function main() {
-    addNewToDoItem();
+    listenNewToDoItem();
     await updateIcon();
-    await getIdCounter();
+    await initList();
 }
 
 main();
