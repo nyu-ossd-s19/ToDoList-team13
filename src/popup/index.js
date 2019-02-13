@@ -51,6 +51,17 @@ async function updateAndSaveList(id, content) {
     await increaseIdCounter();
 }
 
+async function removeFromList(id) {
+    const list = await getList();
+    delete list[id];
+    await saveList(list);
+}
+
+function removeToDoItemInPopup(id) {
+    const ele = document.getElementById(`todo-${id}`);
+    ele.outerHTML = '';
+}
+
 /**
  * @param id {Number/String} - ID of the to-do item
  * @param content {String} - Content of the to-do item
@@ -58,8 +69,17 @@ async function updateAndSaveList(id, content) {
  */
 function createToDoItemElement(id, content) {
     const toDoItem = document.createElement('li');
-    toDoItem.innerText = content;
     toDoItem.id = `todo-${id}`;
+    const text = document.createElement('span');
+    text.innerText = content;
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'DELETE';
+    delBtn.addEventListener('click', async () => {
+        await removeFromList(id);
+        removeToDoItemInPopup(id);
+    });
+    toDoItem.appendChild(text);
+    toDoItem.appendChild(delBtn);
     return toDoItem;
 }
 
