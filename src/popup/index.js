@@ -5,9 +5,9 @@ function getCurrentTab() {
     }).then(tabs => tabs[0]);
 }
 
-function getCurrentUrl() {
-    return getCurrentTab().then(currTab => currTab.url);
-}
+// function getCurrentUrl() {
+//     return getCurrentTab().then(currTab => currTab.url);
+// }
 
 function getCurrentIcon() {
     return getCurrentTab().then(currTab => currTab.favIconUrl);
