@@ -89,6 +89,11 @@ function appendToDoItemInPopup(id, content) {
     container.appendChild(createToDoItemElement(id, content));
 }
 
+// update the counter on the UI
+function updateCounterInPopup(idCounter) {
+    document.getElementById('counter').innerText = idCounter;
+}
+
 // listen the event to add a new to-do item to storage
 function listenNewToDoItem() {
     const newContent = document.getElementById('new-content');
@@ -100,6 +105,7 @@ function listenNewToDoItem() {
         const content = newContent.value;
         await updateAndSaveList(idCounter, content);
         appendToDoItemInPopup(idCounter, content);
+        updateCounterInPopup(idCounter);
     });
 }
 
@@ -123,8 +129,13 @@ async function initList() {
 }
 
 async function main() {
+    // listen for a new item to be added to the list
     listenNewToDoItem();
+
+    // wait, then update the icon
     await updateIcon();
+
+    // wait, then update the list with the current items
     await initList();
 }
 
