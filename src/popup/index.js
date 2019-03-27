@@ -13,6 +13,44 @@ function getCurrentIcon() {
     return getCurrentTab().then(currTab => currTab.favIconUrl);
 }
 
+// display current icon in popup
+async function updateIcon() {
+    const icon = document.querySelector('.header__icon');
+    const currIcon = await getCurrentIcon();
+    if (currIcon) {
+        icon.src = currIcon;
+    }
+}
+
+// insert all to-do items to the popup
+async function initList() {
+    const listObj = await getList();
+    const listArr = Object.entries(listObj);
+    listArr.forEach(([id, content]) => {
+        console.log(content);
+        appendToDoItemInPopup(id, content);
+    });
+}
+
+// listen for the event of adding a new item to storage
+function listenNewToDoItem() {
+    const newContent = document.getElementById('new-content');
+    const newSubmit = document.getElementById('new-submit');
+
+    newSubmit.addEventListener('click', async (event) => {
+        event.preventDefault();
+        // get current id counter from storage
+        const idCounter = await getIdCounter();
+        // send content to update and save the list in storage
+        await updateAndSaveList(idCounter, newContent.value);
+        // send content to the UI
+        appendToDoItemInPopup(idCounter, newContent.value);
+        // update the counter in the UI
+        updateCounterInPopup(idCounter + 1);
+    });
+}
+
+// get and return the id counter from browser storage
 async function getIdCounter() {
     const idCounter = await browser.storage.local.get('idCounter');
     if (idCounter.idCounter === undefined) {
@@ -24,26 +62,7 @@ async function getIdCounter() {
     return idCounter.idCounter;
 }
 
-async function increaseIdCounter() {
-    const idCounter = await browser.storage.local.get('idCounter');
-    await browser.storage.local.set({
-        idCounter: idCounter.idCounter + 1,
-    });
-}
-
-async function getList() {
-    const result = await browser.storage.local.get('list');
-    console.log(result.list);
-    if (result.list === undefined) {
-        return {};
-    }
-    return result.list;
-}
-
-async function saveList(list) {
-    await browser.storage.local.set({ list });
-}
-
+// using the item id and its desired content, this fn will update it in storage
 async function updateAndSaveList(id, content) {
     const list = await getList();
     list[id] = content;
@@ -51,15 +70,32 @@ async function updateAndSaveList(id, content) {
     await increaseIdCounter();
 }
 
-async function removeFromList(id) {
-    const list = await getList();
-    delete list[id];
-    await saveList(list);
+// get current list from storage
+async function getList() {
+    const result = await browser.storage.local.get('list');
+    if (result.list === undefined) {
+        return {};
+    }
+    return result.list;
 }
 
-function removeToDoItemInPopup(id) {
-    const ele = document.getElementById(`todo-${id}`);
-    ele.outerHTML = '';
+// save the current list to browser storage
+async function saveList(list) {
+    await browser.storage.local.set({ list });
+}
+
+// increase the id counter in browser storage by 1
+async function increaseIdCounter() {
+    const idCounter = await browser.storage.local.get('idCounter');
+    await browser.storage.local.set({
+        idCounter: idCounter.idCounter + 1,
+    });
+}
+
+// append a to-do item to the end of to-do list in popup(not storage)
+function appendToDoItemInPopup(id, content) {
+    const container = document.querySelector('.list');
+    container.appendChild(createToDoItemElement(id, content));
 }
 
 /**
@@ -83,48 +119,28 @@ function createToDoItemElement(id, content) {
     return toDoItem;
 }
 
-// append a to-do item to the end of to-do list in popup(not storage)
-function appendToDoItemInPopup(id, content) {
-    const container = document.querySelector('.list');
-    container.appendChild(createToDoItemElement(id, content));
+async function removeFromList(id) {
+    const list = await getList();
+    delete list[id];
+    await saveList(list);
+    decreaseIdCounter();
+    updateCounterInPopup(await getIdCounter() - 1);
+}
+
+function removeToDoItemInPopup(id) {
+    const ele = document.getElementById(`todo-${id}`);
+    ele.outerHTML = '';
 }
 
 // update the counter on the UI
-function updateCounterInPopup(idCounter) {
-    document.getElementById('counter').innerText = idCounter;
+function updateCounterInPopup(counter) {
+    document.getElementById('counter').innerText = counter;
 }
 
-// listen the event to add a new to-do item to storage
-function listenNewToDoItem() {
-    const newContent = document.getElementById('new-content');
-    const newSubmit = document.getElementById('new-submit');
-
-    newSubmit.addEventListener('click', async (event) => {
-        event.preventDefault();
-        const idCounter = await getIdCounter();
-        const content = newContent.value;
-        await updateAndSaveList(idCounter, content);
-        appendToDoItemInPopup(idCounter, content);
-        updateCounterInPopup(idCounter);
-    });
-}
-
-// display current icon in popup
-async function updateIcon() {
-    const icon = document.querySelector('.header__icon');
-    const currIcon = await getCurrentIcon();
-    if (currIcon) {
-        icon.src = currIcon;
-    }
-}
-
-// insert all to-do items to the popup
-async function initList() {
-    const listObj = await getList();
-    const listArr = Object.entries(listObj);
-    listArr.forEach(([id, content]) => {
-        console.log(content);
-        appendToDoItemInPopup(id, content);
+async function decreaseIdCounter() {
+    const idCounter = await browser.storage.local.get('idCounter');
+    await browser.storage.local.set({
+        idCounter: idCounter.idCounter - 1,
     });
 }
 
